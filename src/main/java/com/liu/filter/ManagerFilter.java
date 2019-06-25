@@ -20,11 +20,11 @@ public class ManagerFilter implements Filter {
         HttpSession session= request.getSession();
         String requestURI = request.getRequestURI();
         Manager userInfo= (Manager) session.getAttribute("userInfo");
-        System.out.println(requestURI);
+        System.out.println(request.getHeader("request"));
+        System.out.println(request.getContextPath());
         System.out.println(request.getRequestURL());
-        if (requestURI.contains("/login.jsp")||"http://localhost:8080/managerSystem/".equals(request.getRequestURL())){
+        if (request.getHeader("request")==null||request.getContextPath().contains(request.getHeader("request"))){
             chain.doFilter(req,resp);
-            System.out.println("login.jsp");
         }else {
             if (userInfo!= null) {
                 chain.doFilter(req, resp);
