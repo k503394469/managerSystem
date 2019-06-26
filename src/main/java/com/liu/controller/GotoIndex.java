@@ -22,14 +22,26 @@ public class GotoIndex extends HttpServlet {
     SqlSessionFactoryBuilder builder = null;
     SqlSessionFactory factory = null;
     SqlSession sqlSession = null;
-    ManagerDao managerDao=null;
+    ManagerDao managerDao = null;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        response.setHeader("content-type","text/html;charset=UTF-8");
+        response.setHeader("content-type", "text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
+        String method = request.getParameter("method");
+        if ("back".equals(method)) {
+            if (request.getSession().getAttribute("userInfo") != null) {
+                request.getRequestDispatcher("/WEB-INF/viewPage/manager.jsp").forward(request, response);
+                return;
+            } else {
+                request.setAttribute("error", "sign in,please!");
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
+                return;
+            }
+        }
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        if (username==null||username==""||password==null||password==""){
+        if (username == null || username == "" || password == null || password == "") {
             request.getRequestDispatcher("/login.jsp").forward(request, response);
             return;
         }
@@ -42,7 +54,7 @@ public class GotoIndex extends HttpServlet {
             if (loginCheck) {
                 HttpSession session = request.getSession();
                 session.setAttribute("userInfo", manager);
-                System.out.println("success"+manager);
+                System.out.println("success" + manager);
                 request.getRequestDispatcher("/WEB-INF/viewPage/manager.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("/login.jsp").forward(request, response);
@@ -60,10 +72,10 @@ public class GotoIndex extends HttpServlet {
     @Override
     public void init() throws ServletException {
         try {
-            in= Resources.getResourceAsStream("mybatisConfig.xml");
-            builder=new SqlSessionFactoryBuilder();
-            factory=builder.build(in);
-            sqlSession=factory.openSession();
+            in = Resources.getResourceAsStream("mybatisConfig.xml");
+            builder = new SqlSessionFactoryBuilder();
+            factory = builder.build(in);
+            sqlSession = factory.openSession();
             managerDao = sqlSession.getMapper(ManagerDao.class);
         } catch (IOException e) {
             e.printStackTrace();

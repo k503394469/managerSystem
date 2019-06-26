@@ -39,7 +39,7 @@
         <td>CheckPoint</td>
     </tr>
     <%
-        System.out.println(studentList.size());
+        System.out.println("size;"+studentList.size());
         for (Student student : studentList) {
     %>
     <tr>
@@ -75,6 +75,7 @@
 <%
     }
 %>
-<a href="/managerSystem/gotoStudentManager?method=view&page=<%=totalPage%>">LastPage</a>
+<a href="/managerSystem/gotoStudentManager?method=view&page=<%=totalPage%>">LastPage</a><br/>
+<a href="/managerSystem/gotoIndex?method=back">Back to Manager Page</a>
 </body>
 </html>

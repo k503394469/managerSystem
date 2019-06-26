@@ -30,6 +30,7 @@ public class StudentController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String method=request.getParameter("method");
         if ("insertStu".equals(method)){
+            sqlSession.clearCache();
             tempStu=new Student();
             tempStu.setName(request.getParameter("name"));
             tempStu.setAge(Integer.valueOf(request.getParameter("age")));
