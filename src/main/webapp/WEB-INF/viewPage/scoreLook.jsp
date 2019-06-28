@@ -12,6 +12,7 @@
     Student studentScore = (Student) request.getAttribute("studentScore");
     int result= (int) request.getAttribute("result");
 %>
+<jsp:include page="/WEB-INF/publicPage/userInfo.jsp"/>
 <h1>Student Information</h1>
 <table border="1">
     <tr>

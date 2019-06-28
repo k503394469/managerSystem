@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.liu.dao.ManagerDao">
-    <select id="loginCheck" resultType="boolean" parameterType="com.liu.domain.Manager">
+    <select id="loginCheck" resultType="com.liu.domain.Manager" parameterType="com.liu.domain.Manager">
         select * from manager where account=#{account} and password=#{password}
     </select>
 </mapper>

@@ -21,6 +21,7 @@
     int totalPage = (Integer) request.getAttribute("totalPage");
     Integer pageNow = (Integer) request.getAttribute("pageNow");
 %>
+<jsp:include page="/WEB-INF/publicPage/userInfo.jsp"/>
 <form action="/managerSystem/studentController?method=fuzzy" method="post">
     Name:<input type="text" name="name"/>
     <input type="submit" name="search" value="search">

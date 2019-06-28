@@ -14,6 +14,7 @@
 <%
     Student tempStu = (Student) request.getAttribute("tempStu");
 %>
+<jsp:include page="/WEB-INF/publicPage/userInfo.jsp"/>
 <h1>UpdateStudent</h1>
 <form method="post" action="/managerSystem/studentController?method=update">
     <input type="hidden" name="id" value="<%=tempStu.getId()%>">

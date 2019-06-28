@@ -11,8 +11,10 @@
     <title>Title</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/publicPage/userInfo.jsp"/>
 <h1>Manager Page</h1>
 <a href="/managerSystem/gotoStudentManager?method=view&page=1">Student View</a>
-<a href="/managerSystem/gotoStudentManager?method=add">Add new Student</a>
+<a href="/managerSystem/gotoStudentManager?method=add">Add new Student</a><br/>
+<a href="/managerSystem/gotoExit">back to login</a>
 </body>
 </html>

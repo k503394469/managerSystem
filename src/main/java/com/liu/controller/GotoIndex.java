@@ -48,13 +48,18 @@ public class GotoIndex extends HttpServlet {
         Manager manager = new Manager();
         manager.setAccount(username);
         manager.setPassword(password);
+
         try {
             managerDao = sqlSession.getMapper(ManagerDao.class);
-            Boolean loginCheck = managerDao.loginCheck(manager);
-            if (loginCheck) {
+            Manager loginCheck = managerDao.loginCheck(manager);
+            System.out.println(loginCheck);
+//            if (loginCheck==null){
+//                loginCheck=0;
+//            }
+            if (loginCheck!=null) {
                 HttpSession session = request.getSession();
-                session.setAttribute("userInfo", manager);
-                System.out.println("success" + manager);
+                session.setAttribute("userInfo", loginCheck);
+                System.out.println("success" + loginCheck);
                 request.getRequestDispatcher("/WEB-INF/viewPage/manager.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("/login.jsp").forward(request, response);

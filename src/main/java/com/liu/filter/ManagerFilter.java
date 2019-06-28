@@ -24,7 +24,7 @@ public class ManagerFilter implements Filter {
         System.out.println(request.getContextPath());
         System.out.println(request.getRequestURL());
         if (request.getHeader("request")==null||request.getContextPath().contains(request.getHeader("request"))){
-            chain.doFilter(req,resp);
+            chain.doFilter(request,response);
         }else {
             if (userInfo!= null) {
                 chain.doFilter(req, resp);
