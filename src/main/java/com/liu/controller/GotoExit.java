@@ -17,13 +17,13 @@ public class GotoExit extends HttpServlet {
     Integer times=0;
     String path=null;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        synchronized (this){
+//        synchronized (this){
             out=new FileOutputStream(path);
             times = (Integer) request.getServletContext().getAttribute("times");
             properties=new Properties();
             properties.setProperty("times_of_view", String.valueOf(times));
             properties.store(out,"viewTime");
-        }
+//        }
         request.getSession().invalidate();
         response.sendRedirect("/managerSystem/login.jsp");
     }
@@ -35,7 +35,7 @@ public class GotoExit extends HttpServlet {
     @Override
     public void init() throws ServletException {
         try {
-            path = GotoExit.class.getResource("/times_of_connected.properties").getPath().replaceAll("%20"," ");
+            path = this.getClass().getResource("/times_of_connected.properties").getPath().replaceAll("%20"," ");
             System.out.println(path);
         } catch (Exception e) {
             e.printStackTrace();
