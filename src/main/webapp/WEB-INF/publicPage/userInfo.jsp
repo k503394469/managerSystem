@@ -13,6 +13,8 @@
     Date date=new Date();
     SimpleDateFormat sdf=new SimpleDateFormat("MM/dd/yyyy");
     String time = sdf.format(date);
+    Integer times= (Integer) application.getAttribute("times");
 %>
 Account:<%=managerInfo.getAccount()%>&nbsp;&nbsp;Level:<%=managerInfo.getLevel()%><br/>
 Current date:<%=time%><br/>
+This site has been visited <%=times%> times

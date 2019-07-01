@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,6 +56,7 @@ public class GotoStudentManager extends HttpServlet {
             System.out.println("pageNow:"+pageNow);
 
             request.getRequestDispatcher("/WEB-INF/viewPage/studentView.jsp").forward(request, response);
+
         } else if ("add".equals(method)) {
             sqlSession.clearCache();
             request.getRequestDispatcher("/WEB-INF/viewPage/addStudent.jsp").forward(request, response);
@@ -92,12 +94,13 @@ public class GotoStudentManager extends HttpServlet {
     @Override
     public void init() throws ServletException {
         try {
+
             in = Resources.getResourceAsStream("mybatisConfig.xml");
             builder = new SqlSessionFactoryBuilder();
             factory = builder.build(in);
             sqlSession = factory.openSession();
             studentDao = sqlSession.getMapper(StudentDao.class);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -23,25 +23,20 @@ public class ManagerFilter implements Filter {
         System.out.println(request.getHeader("request"));
         System.out.println(request.getContextPath());
         System.out.println(request.getRequestURL());
-        if (request.getHeader("request")==null||request.getContextPath().contains(request.getHeader("request"))){
-            chain.doFilter(request,response);
+        if (requestURI.contains("/login.jsp")||requestURI.contains("/gotoIndex")){
+            chain.doFilter(req,resp);
         }else {
-            if (userInfo!= null) {
-                chain.doFilter(req, resp);
-                System.out.println("access");
-            } else {
-                request.setAttribute("error", "sign in,please!");
-                request.getRequestDispatcher("/login.jsp").forward(request, response);
-                System.out.println("error");
-                return;
-
+            if (userInfo==null){
+                request.setAttribute("error","sign in,please");
+                request.getRequestDispatcher("/login.jsp").forward(request,response);
+            }else {
+                chain.doFilter(req,resp);
             }
         }
 
     }
 
     public void init(FilterConfig config) throws ServletException {
-
     }
 
 }
