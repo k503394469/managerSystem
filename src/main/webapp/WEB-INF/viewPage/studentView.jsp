@@ -20,6 +20,8 @@
     List<Student> studentList = (List<Student>) request.getAttribute("allStudent");
     int totalPage = (Integer) request.getAttribute("totalPage");
     Integer pageNow = (Integer) request.getAttribute("pageNow");
+    String method = (String) request.getAttribute("method");
+    String name= (String) request.getAttribute("name");
 %>
 <jsp:include page="/WEB-INF/publicPage/userInfo.jsp"/>
 <form action="/managerSystem/studentController?method=fuzzy&page=1" method="post">
@@ -40,7 +42,6 @@
         <td>CheckPoint</td>
     </tr>
     <%
-        System.out.println("size;"+studentList.size());
         for (Student student : studentList) {
     %>
     <tr>
@@ -67,6 +68,9 @@
         }
     %>
 </table>
+<%
+    if ("view".equals(method)) {
+%>
 <a href="/managerSystem/gotoStudentManager?method=view&page=1">FirstPage</a>
 <%
     for (int i = 1; i <= totalPage; i++) {
@@ -77,6 +81,22 @@
     }
 %>
 <a href="/managerSystem/gotoStudentManager?method=view&page=<%=totalPage%>">LastPage</a><br/>
+<%
+} else if ("fuzzy".equals(method)) {
+%>
+<a href="/managerSystem/studentController?method=fuzzy&page=1&name=<%=name%>">FirstPage</a>
+<%
+    for (int i = 1; i <= totalPage; i++) {
+%>
+<a href="/managerSystem/studentController?method=fuzzy&page=<%=i%>&name=<%=name%>"><%=i%>
+</a>
+<%
+    }
+%>
+<a href="/managerSystem/studentController?method=fuzzy&page=<%=totalPage%>&name=<%=name%>">LastPage</a><br/>
+<%
+    }
+%>
 <a href="/managerSystem/gotoIndex?method=back">Back to Manager Page</a>
 </body>
 </html>

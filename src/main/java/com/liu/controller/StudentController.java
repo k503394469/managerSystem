@@ -9,9 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
@@ -26,6 +24,7 @@ public class StudentController extends HttpServlet {
     SqlSession sqlSession = null;
     StudentDao studentDao = null;
     Student tempStu=null;
+    HttpSession session=null;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -71,23 +70,45 @@ public class StudentController extends HttpServlet {
             }
         }else if ("fuzzy".equals(method)){
             sqlSession.clearCache();
+//            session = request.getSession();
+//            String keyWord = (String) session.getAttribute("keyWord");
             String name=request.getParameter("name");
+            if ((name==null||"".equals(name)||""==name)){
+                request.setAttribute("result","please enter name!");
+                request.getRequestDispatcher("/WEB-INF/viewPage/result.jsp").forward(request,response);
+                return;
+            }
+            request.setAttribute("name",name);
+//            if (keyWord==null||"".equals(keyWord)||""==keyWord){
+//                session.setAttribute("keyWord",name);
+//            }else if (keyWord!=null){
+//                if (name!=null&&name.equals(keyWord)){
+//                    name=keyWord;
+//                }else if (name!=null&&!name.equals(keyWord)){
+//                    session.setAttribute("keyWord",name);
+//                }else if(name==null){
+//                    name=keyWord;
+//                }
+//            }
             Integer pageNow= Integer.valueOf(request.getParameter("page"));
+            if (pageNow<=0){
+                pageNow=1;
+            }
             final Integer pageSize=5;
             Integer rowCount=studentDao.totalStudentForFuzzy("%" + name + "%");//総記録数
 
             int totalPage=(rowCount%pageSize==0)?(rowCount/pageSize):(rowCount/pageSize)+1;
-            request.getSession().setAttribute("totalPage",totalPage);
+//            request.getSession().setAttribute("totalPage",totalPage);
             Map<String,Object> pageInfo=new LinkedHashMap<String, Object>();
 
             pageInfo.put("pageNow",(pageNow-1)*pageSize);
             pageInfo.put("pageSize",pageSize);
             pageInfo.put("name","%" + name + "%");
             List<Student> studentList = studentDao.findStudentByName(pageInfo);
-            request.setAttribute("studentList",studentList);
             request.setAttribute("totalPage",totalPage);
             request.setAttribute("allStudent",studentList);
             request.setAttribute("pageNow",pageNow);
+            request.setAttribute("method","fuzzy");
             request.getRequestDispatcher("/WEB-INF/viewPage/studentView.jsp").forward(request,response);
         }
     }

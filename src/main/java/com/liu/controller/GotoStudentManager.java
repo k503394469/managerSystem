@@ -39,10 +39,13 @@ public class GotoStudentManager extends HttpServlet {
         if ("view".equals(method)) {
             sqlSession.clearCache();
             Integer pageNow= Integer.valueOf(request.getParameter("page"));
+            if (pageNow<=0){
+                pageNow=1;
+            }
             final Integer pageSize=10;
             Integer rowCount=studentDao.totalStudent();//総記録数
             int totalPage=(rowCount%pageSize==0)?(rowCount/pageSize):(rowCount/pageSize)+1;
-            request.getSession().setAttribute("totalPage",totalPage);
+//            request.getSession().setAttribute("totalPage",totalPage);
             Map<String,Integer> pageInfo=new LinkedHashMap<String, Integer>();
             pageInfo.put("pageNow",(pageNow-1)*pageSize);
             pageInfo.put("pageSize",pageSize);
@@ -51,6 +54,7 @@ public class GotoStudentManager extends HttpServlet {
             request.setAttribute("totalPage",totalPage);
             request.setAttribute("allStudent",allStudent);
             request.setAttribute("pageNow",pageNow);
+            request.setAttribute("method","view");
 
             request.getRequestDispatcher("/WEB-INF/viewPage/studentView.jsp").forward(request, response);
 
