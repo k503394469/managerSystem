@@ -47,7 +47,7 @@
     <select id="totalStudentForFuzzy" resultType="Integer" parameterType="String" flushCache="true" useCache="false">
         select count(*) from student where name like #{name}
     </select>
-    <select id="findStudentByName" resultType="Map" flushCache="true"
+    <select id="findStudentByName" resultType="com.liu.domain.Student" parameterType="Map" flushCache="true"
             useCache="false">
         select * from student where name like #{name} order by id limit #{pageNow},#{pageSize}
     </select>

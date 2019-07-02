@@ -78,10 +78,10 @@ public class StudentController extends HttpServlet {
 
             int totalPage=(rowCount%pageSize==0)?(rowCount/pageSize):(rowCount/pageSize)+1;
             request.getSession().setAttribute("totalPage",totalPage);
-            Map<String,String> pageInfo=new LinkedHashMap<String, String>();
+            Map<String,Object> pageInfo=new LinkedHashMap<String, Object>();
 
-            pageInfo.put("pageNow",((pageNow-1)*pageSize)+"");
-            pageInfo.put("pageSize",pageSize+"");
+            pageInfo.put("pageNow",(pageNow-1)*pageSize);
+            pageInfo.put("pageSize",pageSize);
             pageInfo.put("name","%" + name + "%");
             List<Student> studentList = studentDao.findStudentByName(pageInfo);
             request.setAttribute("studentList",studentList);

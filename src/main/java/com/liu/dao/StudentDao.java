@@ -14,7 +14,7 @@ public interface StudentDao {
     Student findStudentById(Integer id);
     Integer deleteStudent(Integer id);
     Integer totalStudentForFuzzy(String name);
-    List<Student> findStudentByName(Map<String,String> pageInfo);
+    List<Student> findStudentByName(Map<String,Object> pageInfo);
     Integer totalStudent();
     List<Student> getAllStudent(Map<String,Integer> pageInfo);
 }
