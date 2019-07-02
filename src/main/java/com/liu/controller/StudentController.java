@@ -24,7 +24,6 @@ public class StudentController extends HttpServlet {
     SqlSession sqlSession = null;
     StudentDao studentDao = null;
     Student tempStu=null;
-    HttpSession session=null;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -70,8 +69,6 @@ public class StudentController extends HttpServlet {
             }
         }else if ("fuzzy".equals(method)){
             sqlSession.clearCache();
-//            session = request.getSession();
-//            String keyWord = (String) session.getAttribute("keyWord");
             String name=request.getParameter("name");
             if ((name==null||"".equals(name)||""==name)){
                 request.setAttribute("result","please enter name!");
@@ -79,17 +76,7 @@ public class StudentController extends HttpServlet {
                 return;
             }
             request.setAttribute("name",name);
-//            if (keyWord==null||"".equals(keyWord)||""==keyWord){
-//                session.setAttribute("keyWord",name);
-//            }else if (keyWord!=null){
-//                if (name!=null&&name.equals(keyWord)){
-//                    name=keyWord;
-//                }else if (name!=null&&!name.equals(keyWord)){
-//                    session.setAttribute("keyWord",name);
-//                }else if(name==null){
-//                    name=keyWord;
-//                }
-//            }
+
             Integer pageNow= Integer.valueOf(request.getParameter("page"));
             if (pageNow<=0){
                 pageNow=1;
