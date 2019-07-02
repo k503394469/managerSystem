@@ -22,7 +22,7 @@
     Integer pageNow = (Integer) request.getAttribute("pageNow");
 %>
 <jsp:include page="/WEB-INF/publicPage/userInfo.jsp"/>
-<form action="/managerSystem/studentController?method=fuzzy" method="post">
+<form action="/managerSystem/studentController?method=fuzzy&page=1" method="post">
     Name:<input type="text" name="name"/>
     <input type="submit" name="search" value="search">
 </form>

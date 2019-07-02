@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "studentController",value = "/studentController")
 public class StudentController extends HttpServlet {
@@ -68,9 +70,24 @@ public class StudentController extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/viewPage/result.jsp").forward(request,response);
             }
         }else if ("fuzzy".equals(method)){
+            sqlSession.clearCache();
             String name=request.getParameter("name");
-            List<Student> studentList = studentDao.findStudentByName("%" + name + "%");
+            Integer pageNow= Integer.valueOf(request.getParameter("page"));
+            final Integer pageSize=5;
+            Integer rowCount=studentDao.totalStudentForFuzzy("%" + name + "%");//総記録数
+
+            int totalPage=(rowCount%pageSize==0)?(rowCount/pageSize):(rowCount/pageSize)+1;
+            request.getSession().setAttribute("totalPage",totalPage);
+            Map<String,String> pageInfo=new LinkedHashMap<String, String>();
+
+            pageInfo.put("pageNow",((pageNow-1)*pageSize)+"");
+            pageInfo.put("pageSize",pageSize+"");
+            pageInfo.put("name","%" + name + "%");
+            List<Student> studentList = studentDao.findStudentByName(pageInfo);
             request.setAttribute("studentList",studentList);
+            request.setAttribute("totalPage",totalPage);
+            request.setAttribute("allStudent",studentList);
+            request.setAttribute("pageNow",pageNow);
             request.getRequestDispatcher("/WEB-INF/viewPage/studentView.jsp").forward(request,response);
         }
     }

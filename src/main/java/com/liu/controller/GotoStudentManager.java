@@ -42,18 +42,15 @@ public class GotoStudentManager extends HttpServlet {
             final Integer pageSize=10;
             Integer rowCount=studentDao.totalStudent();//総記録数
             int totalPage=(rowCount%pageSize==0)?(rowCount/pageSize):(rowCount/pageSize)+1;
-            System.out.println("rowCount%pageSize:"+rowCount%pageSize);
             request.getSession().setAttribute("totalPage",totalPage);
             Map<String,Integer> pageInfo=new LinkedHashMap<String, Integer>();
             pageInfo.put("pageNow",(pageNow-1)*pageSize);
             pageInfo.put("pageSize",pageSize);
             List<Student> allStudent = studentDao.getAllStudent(pageInfo);
 
-            System.out.println("totalPage:"+totalPage);
             request.setAttribute("totalPage",totalPage);
             request.setAttribute("allStudent",allStudent);
             request.setAttribute("pageNow",pageNow);
-            System.out.println("pageNow:"+pageNow);
 
             request.getRequestDispatcher("/WEB-INF/viewPage/studentView.jsp").forward(request, response);
 
