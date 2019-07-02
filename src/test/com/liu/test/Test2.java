@@ -24,7 +24,7 @@ public class Test2 {
         OutputStream out=new FileOutputStream(path);
 
         Properties properties=new Properties();
-        properties.setProperty("times_of_view", 1+"");
+        properties.setProperty("times_of_view", 89+"");
         properties.store(out,"viewTime");
     }
 }

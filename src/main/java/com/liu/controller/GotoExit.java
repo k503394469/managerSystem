@@ -1,5 +1,6 @@
 package com.liu.controller;
 
+import com.liu.utils.ViewTimesRecord;
 import org.apache.ibatis.io.Resources;
 
 import javax.servlet.ServletException;
@@ -12,18 +13,13 @@ import java.util.Properties;
 
 @WebServlet(name = "gotoExit",value = "/gotoExit")
 public class GotoExit extends HttpServlet {
-    Properties properties=null;
     OutputStream out=null;
-    Integer times=0;
     String path=null;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        synchronized (this){
-            out=new FileOutputStream(path);
-            times = (Integer) request.getServletContext().getAttribute("times");
-            properties=new Properties();
-            properties.setProperty("times_of_view", String.valueOf(times));
-            properties.store(out,"viewTime");
-//        }
+        synchronized (this){
+            ViewTimesRecord vtr=new ViewTimesRecord();
+            vtr.viewController(request,request.getServletContext(),"/times_of_connected.properties");
+        }
         request.getSession().invalidate();
         response.sendRedirect("/managerSystem/login.jsp");
     }
