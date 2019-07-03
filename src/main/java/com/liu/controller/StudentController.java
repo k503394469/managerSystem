@@ -12,9 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @WebServlet(name = "studentController",value = "/studentController")
 public class StudentController extends HttpServlet {
@@ -97,6 +95,28 @@ public class StudentController extends HttpServlet {
             request.setAttribute("pageNow",pageNow);
             request.setAttribute("method","fuzzy");
             request.getRequestDispatcher("/WEB-INF/viewPage/studentView.jsp").forward(request,response);
+        }else if ("batchDelete".equals(method)){
+            String[] ids_String = request.getParameterValues("ids");
+            if (ids_String==null||ids_String.length<=0){
+                request.setAttribute("error", "Please select at least one student!");
+                request.getRequestDispatcher("/gotoStudentManager?method=view&page=1").forward(request, response);
+                return;
+            }
+            List<Integer> ids=new ArrayList<Integer>();
+            for (String id_temp:ids_String){
+                ids.add(Integer.parseInt(id_temp));
+                System.out.println(id_temp);
+            }
+            Integer delRes = studentDao.batchDeleteStudent(ids);
+            sqlSession.commit();
+            if (delRes > 0) {
+                List<Student> studentList = studentDao.findAll();
+                request.setAttribute("studentList", studentList);
+                request.getRequestDispatcher("/gotoStudentManager?method=view&page=1").forward(request, response);
+            } else {
+                request.setAttribute("result", "DeleteFailed");
+                request.getRequestDispatcher("/WEB-INF/viewPage/result.jsp").forward(request, response);
+            }
         }
     }
 
