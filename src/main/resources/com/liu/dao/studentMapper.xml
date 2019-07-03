@@ -79,4 +79,15 @@
     <delete id="deleteStudent" parameterType="Integer" flushCache="true">
         delete from student where id=#{id}
     </delete>
+    <delete id="batchDeleteStudent" parameterType="java.util.List" flushCache="true">
+        delete from student
+        <where>
+            <if test="ids.size>0 and ids!=null">
+            id in
+            <foreach collection="ids" open="(" close=")" separator="," item="id">
+                #{id}
+            </foreach>
+            </if>
+        </where>
+    </delete>
 </mapper>

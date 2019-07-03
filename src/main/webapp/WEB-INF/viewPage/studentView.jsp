@@ -21,15 +21,23 @@
     int totalPage = (Integer) request.getAttribute("totalPage");
     Integer pageNow = (Integer) request.getAttribute("pageNow");
     String method = (String) request.getAttribute("method");
-    String name= (String) request.getAttribute("name");
+    String name = (String) request.getAttribute("name");
 %>
 <jsp:include page="/WEB-INF/publicPage/userInfo.jsp"/>
 <form action="/managerSystem/studentController?method=fuzzy&page=1" method="post">
     Name:<input type="text" name="name"/>
     <input type="submit" name="search" value="search">
 </form>
+<%
+    if (studentList == null || studentList.isEmpty()) {
+%>
+<p style="color: red;font-size: 20px">Data doesn't exist</p>
+<%
+} else {
+%>
 <table border="1">
     <tr>
+        <td>check</td>
         <td>Number</td>
         <td>Name</td>
         <td>Age</td>
@@ -45,6 +53,7 @@
         for (Student student : studentList) {
     %>
     <tr>
+        <td><input type="checkbox" name="ids" value="<%=student.getId()%>"></td>
         <td><%=student.getId()%>
         </td>
         <td><%=student.getName()%>
@@ -66,6 +75,7 @@
     </tr>
     <%
         }
+
     %>
 </table>
 <%
@@ -95,6 +105,7 @@
 %>
 <a href="/managerSystem/studentController?method=fuzzy&page=<%=totalPage%>&name=<%=name%>">LastPage</a><br/>
 <%
+        }
     }
 %>
 <a href="/managerSystem/gotoIndex?method=back">Back to Manager Page</a>

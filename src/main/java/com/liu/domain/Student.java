@@ -14,9 +14,18 @@ public class Student implements Serializable {
     private String dept;
     private List<Course> courses;
     private List<Score> scores;
+    private List<Integer> ids;
     //page
     private Integer pageNow;
     private Integer pageSize;
+
+    public List<Integer> getIds() {
+        return ids;
+    }
+
+    public void setIds(List<Integer> ids) {
+        this.ids = ids;
+    }
 
     public Integer getPageNow() {
         return pageNow;
