@@ -44,6 +44,9 @@
     <insert id="insertStudent" parameterType="com.liu.domain.Student" flushCache="true">
         insert into student(name,age,sex,address,email,dept) values(#{name},#{age},#{sex},#{address},#{email},#{dept})
     </insert>
+    <insert id="insertTodel" parameterType="com.liu.domain.Student" flushCache="true">
+        insert into deletedStu values(#{id},#{name},#{age},#{sex},#{address},#{email},#{dept})
+    </insert>
     <select id="totalStudentForFuzzy" resultType="Integer" parameterType="String" flushCache="true" useCache="false">
         select count(*) from student where name like #{name}
     </select>

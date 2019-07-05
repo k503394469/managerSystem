@@ -66,7 +66,15 @@ public class GotoStudentManager extends HttpServlet {
             request.setAttribute("tempStu", tempStu);
             request.getRequestDispatcher("/WEB-INF/viewPage/updateStudent.jsp").forward(request, response);
         } else if ("delete".equals(method)) {
-            Integer result = studentDao.deleteStudent(Integer.valueOf(request.getParameter("id")));
+            String stuId=request.getParameter("id");
+            Student tempStu = studentDao.findStudentById(Integer.valueOf(stuId));
+            Integer insResToDel = studentDao.insertTodel(tempStu);
+            if (insResToDel<=0){
+                request.setAttribute("result", "DeleteFailed");
+                request.getRequestDispatcher("/WEB-INF/viewPage/result.jsp").forward(request, response);
+                return;
+            }
+            Integer result = studentDao.deleteStudent(Integer.valueOf(stuId));
             sqlSession.commit();
             if (result > 0) {
                 List<Student> studentList = studentDao.findAll();

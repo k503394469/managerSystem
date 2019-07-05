@@ -10,7 +10,7 @@
 <body>
 <%
     Student studentScore = (Student) request.getAttribute("studentScore");
-    int result= (int) request.getAttribute("result");
+    int result = (int) request.getAttribute("result");
 %>
 <jsp:include page="/WEB-INF/publicPage/userInfo.jsp"/>
 <h1>Student Information</h1>
@@ -50,6 +50,16 @@
 </table>
 <br/>
 TotalScore:<%=result%>
-
+<%
+    if (result < 50) {
+%>
+<p style="color: red;font-size: 12px">This student will not be promoted to third grade</p>
+<%
+} else if (result >= 50) {
+%>
+<p style="color: green;font-size: 12px">This student will be promoted to third grade</p>
+<%
+    }
+%>
 </body>
 </html>
