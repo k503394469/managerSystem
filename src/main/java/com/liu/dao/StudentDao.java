@@ -17,6 +17,8 @@ public interface StudentDao {
     List<Student> findStudentByName(Map<String,Object> pageInfo);
     Integer totalStudent();
     List<Student> getAllStudent(Map<String,Integer> pageInfo);
+    Integer batchInsertDel(List<Student> students);
+    List<Student> findStudentByIds(@Param("ids") List<Integer> ids);
     Integer batchDeleteStudent(@Param("ids") List<Integer> ids);
     Integer insertTodel(Student delStu);
 }

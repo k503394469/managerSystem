@@ -105,7 +105,17 @@ public class StudentController extends HttpServlet {
             List<Integer> ids=new ArrayList<Integer>();
             for (String id_temp:ids_String){
                 ids.add(Integer.parseInt(id_temp));
-                System.out.println(id_temp);
+//                System.out.println(id_temp);
+            }
+            List<Student> studentByIds = studentDao.findStudentByIds(ids);
+            for (Student u:studentByIds){
+                System.out.println("u="+u.getName());
+            }
+            Integer batchInsert = studentDao.batchInsertDel(studentByIds);
+            if (batchInsert<=0){
+                request.setAttribute("result", "DeleteFailed");
+                request.getRequestDispatcher("/WEB-INF/viewPage/result.jsp").forward(request, response);
+                return;
             }
             Integer delRes = studentDao.batchDeleteStudent(ids);
             sqlSession.commit();
