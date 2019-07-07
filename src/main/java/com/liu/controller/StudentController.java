@@ -83,7 +83,6 @@ public class StudentController extends HttpServlet {
             Integer rowCount=studentDao.totalStudentForFuzzy("%" + name + "%");//総記録数
 
             int totalPage=(rowCount%pageSize==0)?(rowCount/pageSize):(rowCount/pageSize)+1;
-//            request.getSession().setAttribute("totalPage",totalPage);
             Map<String,Object> pageInfo=new LinkedHashMap<String, Object>();
 
             pageInfo.put("pageNow",(pageNow-1)*pageSize);
@@ -108,9 +107,6 @@ public class StudentController extends HttpServlet {
 //                System.out.println(id_temp);
             }
             List<Student> studentByIds = studentDao.findStudentByIds(ids);
-            for (Student u:studentByIds){
-                System.out.println("u="+u.getName());
-            }
             Integer batchInsert = studentDao.batchInsertDel(studentByIds);
             if (batchInsert<=0){
                 request.setAttribute("result", "DeleteFailed");

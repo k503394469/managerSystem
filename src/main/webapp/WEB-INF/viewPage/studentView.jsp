@@ -82,7 +82,7 @@
         %>
     </table>
     <p style="color: red;font-size: 12px"><%=(error!=null&&!"".equals(error)?error:"")%></p>
-    <input type="submit" name="delete" value="BatchDelete" onclick="return cfm();">
+    <input type="submit" name="delete" value="BatchDelete" onclick="return cfm();">( Please check the [check]option above)
 </form>
 <%
     if ("view".equals(method)) {
@@ -110,6 +110,7 @@
     }
 %>
 <a href="/managerSystem/studentController?method=fuzzy&page=<%=totalPage%>&name=<%=name%>">LastPage</a><br/>
+
 <%
         }
     }
