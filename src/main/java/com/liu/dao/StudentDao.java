@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface StudentDao {
+    Student loginCheck(Student student);
     List<Student> findAll();
     Student checkStuScore(Integer id);
     Integer insertStudent(Student student);

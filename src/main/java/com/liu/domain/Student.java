@@ -12,6 +12,7 @@ public class Student implements Serializable {
     private String address;
     private String email;
     private String dept;
+    private String password;
     private List<Course> courses;
     private List<Score> scores;
     private List<Integer> ids;
@@ -115,6 +116,14 @@ public class Student implements Serializable {
         this.dept = dept;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -125,6 +134,12 @@ public class Student implements Serializable {
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 ", dept='" + dept + '\'' +
+                ", password='" + password + '\'' +
+                ", courses=" + courses +
+                ", scores=" + scores +
+                ", ids=" + ids +
+                ", pageNow=" + pageNow +
+                ", pageSize=" + pageSize +
                 '}';
     }
 }

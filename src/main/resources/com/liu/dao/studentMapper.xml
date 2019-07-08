@@ -22,6 +22,9 @@
             <result property="point" column="scorePoint"></result>
         </collection>
     </resultMap>
+    <select id="loginCheck" resultType="com.liu.domain.Student" flushCache="true" useCache="false">
+        select * from student where id=#{id} and password=#{password}
+    </select>
     <select id="findAll" resultType="com.liu.domain.Student" flushCache="true" useCache="false">
         select * from student
     </select>

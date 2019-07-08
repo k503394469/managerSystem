@@ -23,7 +23,7 @@ public class ManagerFilter implements Filter {
         System.out.println(request.getHeader("request"));
         System.out.println(request.getContextPath());
         System.out.println(request.getRequestURL());
-        if (requestURI.contains("/login.jsp")||requestURI.contains("/gotoIndex")){
+        if (requestURI.contains("/login.jsp")||requestURI.contains("/gotoIndex")||requestURI.contains("/studentLogin.jsp")||requestURI.contains("/gotoMyController")){
             chain.doFilter(req,resp);
         }else {
             if (userInfo==null){

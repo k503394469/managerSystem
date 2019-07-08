@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="managerSystem">
+    <output-path>$PROJECT_DIR$/target/SNAPSHOT</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="managerSystem" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.6.1" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.16" />
+          <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.5.1" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="managerSystem/web/Web" />
+    </root>
+  </artifact>
+</component>

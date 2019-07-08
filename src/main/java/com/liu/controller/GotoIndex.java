@@ -93,9 +93,6 @@ public class GotoIndex extends HttpServlet {
 //            doc=saxReader.read(Thread.currentThread().getContextClassLoader().getResourceAsStream("times_of_connected.properties"));
 //            Element rootEl=doc.getRootElement();
 //            times= (Integer) rootEl.getData();
-            properties=new Properties();
-            properties.load(Resources.getResourceAsStream("times_of_connected.properties"));
-            times= Integer.valueOf(properties.getProperty("times_of_view"));
             in = Resources.getResourceAsStream("mybatisConfig.xml");
             builder = new SqlSessionFactoryBuilder();
             factory = builder.build(in);
