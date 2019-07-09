@@ -11,6 +11,8 @@
     <title>studentMan</title>
 </head>
 <body>
-Man
+<h1>My Manager</h1>
+<a href="/managerSystem/coursesController?method=viewLesson">Look My lesson</a>&nbsp;<br/>
+<a href="">Back to Student Login</a>
 </body>
 </html>

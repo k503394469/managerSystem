@@ -3,22 +3,22 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <filter>
-    <filter-name>managerFilter</filter-name>
-    <filter-class>com.liu.filter.ManagerFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>managerFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-  <filter>
-    <filter-name>getipFilter</filter-name>
-    <filter-class>com.liu.filter.GetipFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>getipFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
+<!--  <filter>-->
+<!--    <filter-name>managerFilter</filter-name>-->
+<!--    <filter-class>com.liu.filter.ManagerFilter</filter-class>-->
+<!--  </filter>-->
+<!--  <filter-mapping>-->
+<!--    <filter-name>managerFilter</filter-name>-->
+<!--    <url-pattern>/*</url-pattern>-->
+<!--  </filter-mapping>-->
+<!--  <filter>-->
+<!--    <filter-name>getipFilter</filter-name>-->
+<!--    <filter-class>com.liu.filter.GetipFilter</filter-class>-->
+<!--  </filter>-->
+<!--  <filter-mapping>-->
+<!--    <filter-name>getipFilter</filter-name>-->
+<!--    <url-pattern>/*</url-pattern>-->
+<!--  </filter-mapping>-->
   <welcome-file-list>
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>

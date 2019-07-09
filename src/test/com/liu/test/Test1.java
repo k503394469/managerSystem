@@ -28,13 +28,11 @@ public class Test1 {
         factory = builder.build(in);
         sqlSession = factory.openSession();
         studentDao = sqlSession.getMapper(StudentDao.class);
-        List <Integer> ids=new ArrayList<Integer>();
-        ids.add(4);
-        ids.add(18);
-        List<Student> studentByIds = studentDao.findStudentByIds(ids);
-        for (Student ii:studentByIds){
-            System.out.println(ii);
-        }
+        Student temp=new Student();
+        temp.setId(1);
+        temp.setPassword("abc123");
+        Student studentById = studentDao.loginCheck(temp);
+        System.out.println(studentById);
         sqlSession.close();
         in.close();
     }

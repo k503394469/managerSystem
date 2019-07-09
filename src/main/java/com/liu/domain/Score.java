@@ -6,6 +6,15 @@ public class Score implements Serializable {
     private Integer sid;
     private Integer cid;
     private Integer point;
+    private String comments;
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
 
     public Integer getSid() {
         return sid;
@@ -37,6 +46,7 @@ public class Score implements Serializable {
                 "sid=" + sid +
                 ", cid=" + cid +
                 ", point=" + point +
+                ", comments='" + comments + '\'' +
                 '}';
     }
 }

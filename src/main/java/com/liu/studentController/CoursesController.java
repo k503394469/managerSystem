@@ -1,58 +1,42 @@
 package com.liu.studentController;
 
-import com.liu.dao.ManagerDao;
 import com.liu.dao.StudentDao;
+import com.liu.domain.Score;
 import com.liu.domain.Student;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Properties;
 
-@WebServlet(name = "gotoMyController",value = "/gotoMyController")
-public class GotoMyController extends HttpServlet {
+@WebServlet(name = "coursesController",value = "/coursesController")
+public class CoursesController extends HttpServlet {
     InputStream in = null;
     SqlSessionFactoryBuilder builder = null;
     SqlSessionFactory factory = null;
     SqlSession sqlSession = null;
     StudentDao studentDao = null;
-    Integer times=0;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
-        response.setHeader("content-type", "text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        String method = request.getParameter("method");
+        String method=request.getParameter("method");
+        if ("viewLesson".equals(method)){
+            Student stuInfo=(Student) request.getSession().getAttribute("userInfo");
+            Integer stuId = stuInfo.getId();
+            Student student = studentDao.checkStuScore(stuId);
+            int result = 0;
+            for (Score s : student.getScores()) {
+                result += s.getPoint();
+            }
+            request.setAttribute("result", result);
+            request.setAttribute("studentScore", student);
+            request.getRequestDispatcher("/WEB-INF/studentPage/myCourse.jsp").forward(request,response);
 
-        String id = request.getParameter("id");
-        String password = request.getParameter("password");
-        if (id == null || id == "" || password == null || password == "") {
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-            return;
-        }
-        Student check=new Student();
-        check.setId(Integer.valueOf(id));
-        check.setPassword(password);
-        if (check!=null){
-            ServletContext servletContext = request.getServletContext();
-            servletContext.setAttribute("times",times);
-            HttpSession session = request.getSession();
-            session.setAttribute("userInfo", check);
-            System.out.println("success" + check);
-            request.getRequestDispatcher("/WEB-INF/studentPage/studentMan.jsp").forward(request, response);
-            times++;
-        }else {
-            request.setAttribute("error","login again,please");
-            request.getRequestDispatcher("/studentLogin.jsp").forward(request, response);
         }
     }
 
@@ -68,7 +52,7 @@ public class GotoMyController extends HttpServlet {
             factory = builder.build(in);
             sqlSession = factory.openSession();
             studentDao = sqlSession.getMapper(StudentDao.class);
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
