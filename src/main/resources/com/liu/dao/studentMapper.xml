@@ -20,6 +20,7 @@
             <result property="cid" column="scoreCid"></result>
             <result property="sid" column="scoreSid"></result>
             <result property="point" column="scorePoint"></result>
+            <result property="comments" column="comments"></result>
         </collection>
     </resultMap>
     <select id="loginCheck" resultType="com.liu.domain.Student" flushCache="true" useCache="false">
@@ -36,7 +37,7 @@
     </select>
     <select id="checkStuScore" resultMap="studentMap" parameterType="Integer" flushCache="true" useCache="false">
         select student.*,course.id as courseId,course.name as courseName,course.score as courseScore,
-        score.cid as scoreCid,score.sid as scoreSid,score.point as scorePoint
+        score.cid as scoreCid,score.sid as scoreSid,score.point as scorePoint,score.comments
         from student
         left join score on score.sid=student.id left join course on course.id=score.cid where student.id=#{id}
     </select>

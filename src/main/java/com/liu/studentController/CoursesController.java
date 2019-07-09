@@ -37,6 +37,8 @@ public class CoursesController extends HttpServlet {
             request.setAttribute("studentScore", student);
             request.getRequestDispatcher("/WEB-INF/studentPage/myCourse.jsp").forward(request,response);
 
+        }else if ("checkComm".equals(method)){
+
         }
     }
 
