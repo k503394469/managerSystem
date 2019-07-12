@@ -1,5 +1,6 @@
 package com.liu.studentController;
 
+import com.liu.dao.ScoreDao;
 import com.liu.dao.StudentDao;
 import com.liu.domain.Score;
 import com.liu.domain.Student;
@@ -23,6 +24,7 @@ public class CoursesController extends HttpServlet {
     SqlSessionFactory factory = null;
     SqlSession sqlSession = null;
     StudentDao studentDao = null;
+    ScoreDao scoreDao=null;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String method=request.getParameter("method");
         if ("viewLesson".equals(method)){
@@ -38,7 +40,16 @@ public class CoursesController extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/studentPage/myCourse.jsp").forward(request,response);
 
         }else if ("checkComm".equals(method)){
+            String cid = request.getParameter("cid");
+            String sid = request.getParameter("sid");
+            Score score = new Score();
+            score.setCid(Integer.valueOf(cid));
+            score.setSid(Integer.valueOf(sid));
 
+            String comment = scoreDao.lookComments(score);
+            System.out.println(comment);
+            request.setAttribute("comment",comment);
+            request.getRequestDispatcher("/WEB-INF/studentPage/couComment.jsp").forward(request,response);
         }
     }
 
@@ -54,6 +65,7 @@ public class CoursesController extends HttpServlet {
             factory = builder.build(in);
             sqlSession = factory.openSession();
             studentDao = sqlSession.getMapper(StudentDao.class);
+            scoreDao=sqlSession.getMapper(ScoreDao.class);
         }catch (Exception e){
             e.printStackTrace();
         }

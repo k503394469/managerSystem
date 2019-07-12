@@ -23,5 +23,6 @@
     <mappers>
         <mapper resource="com/liu/dao/managerMapper.xml"></mapper>
         <mapper resource="com/liu/dao/studentMapper.xml"></mapper>
+        <mapper resource="com/liu/dao/scoreMap.xml"></mapper>
     </mappers>
 </configuration>

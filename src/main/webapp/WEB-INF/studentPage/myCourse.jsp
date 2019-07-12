@@ -46,7 +46,7 @@
         </td>
         <td><%=studentScore.getScores().get(i).getPoint()%>
         </td>
-        <td><a href="">My Comments</a></td>
+        <td><a href="/managerSystem/coursesController?method=checkComm&cid=<%=studentScore.getScores().get(i).getCid()%>&sid=<%=studentScore.getScores().get(i).getSid()%>">My Comments</a></td>
     </tr>
     <%
         }
