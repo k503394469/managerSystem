@@ -13,7 +13,21 @@
 <body>
 <%
     String comment= (String) request.getAttribute("comment");
+    String cid= (String) request.getAttribute("cid");
+    String sid= (String) request.getAttribute("sid");
 %>
 <p><%=comment%></p>
+<form action="/managerSystem/coursesController?method=deleteComm" method="post">
+    <input type="hidden" name="comment" value="<%=comment%>">
+    <input type="hidden" name="cid" value="<%=cid%>">
+    <input type="hidden" name="sid" value="<%=sid%>">
+    <input type="submit"  name="delete" value="Delete">
+</form>
+<form action="" method="post">
+    <input type="hidden" name="comment" value="<%=comment%>">
+    <input type="hidden" name="cid" value="<%=cid%>">
+    <input type="hidden" name="sid" value="<%=sid%>">
+    <input type="submit"  name="update" value="Update">
+</form>
 </body>
 </html>

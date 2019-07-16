@@ -48,8 +48,23 @@ public class CoursesController extends HttpServlet {
 
             String comment = scoreDao.lookComments(score);
             System.out.println(comment);
+            request.setAttribute("cid",cid);
+            request.setAttribute("sid",sid);
             request.setAttribute("comment",comment);
             request.getRequestDispatcher("/WEB-INF/studentPage/couComment.jsp").forward(request,response);
+        }else if ("updateComm".equals(method)){
+            String comment=request.getParameter("comment");
+            String sid =request.getParameter("sid");
+            String cid = request.getParameter("cid");
+            Score temp=new Score();
+            temp.setCid(Integer.valueOf(cid));
+            temp.setSid(Integer.valueOf(sid));
+            Integer res = scoreDao.deleteComments(temp);
+            if (res>0){
+                request.setAttribute("result","DeleteSuccess");
+                request.getRequestDispatcher("/WEB-INF/studentPage/scoreResult.jsp").forward(request,response);
+            }
+
         }
     }
 
