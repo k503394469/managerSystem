@@ -7,6 +7,6 @@
         select comments from score where sid=#{sid} and cid=#{cid}
     </select>
     <update id="deleteComments" parameterType="com.liu.domain.Score" flushCache="true">
-        update score set comment=null where sid=#{sid} and cid=#{cid}
+        update score set comments=null where sid=#{sid} and cid=#{cid}
     </update>
 </mapper>

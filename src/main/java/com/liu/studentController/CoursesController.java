@@ -47,13 +47,15 @@ public class CoursesController extends HttpServlet {
             score.setSid(Integer.valueOf(sid));
 
             String comment = scoreDao.lookComments(score);
+            if ("null".equals(comment)||null==comment||("").equals(comment)||comment.isEmpty()){
+                comment="There are no comments in this lesson";
+            }
             System.out.println(comment);
             request.setAttribute("cid",cid);
             request.setAttribute("sid",sid);
             request.setAttribute("comment",comment);
             request.getRequestDispatcher("/WEB-INF/studentPage/couComment.jsp").forward(request,response);
-        }else if ("updateComm".equals(method)){
-            String comment=request.getParameter("comment");
+        }else if ("deleteComm".equals(method)){
             String sid =request.getParameter("sid");
             String cid = request.getParameter("cid");
             Score temp=new Score();
@@ -63,8 +65,22 @@ public class CoursesController extends HttpServlet {
             if (res>0){
                 request.setAttribute("result","DeleteSuccess");
                 request.getRequestDispatcher("/WEB-INF/studentPage/scoreResult.jsp").forward(request,response);
+            }else {
+                request.setAttribute("result","DeleteSuccess");
+                request.getRequestDispatcher("/WEB-INF/studentPage/scoreResult.jsp").forward(request,response);
             }
-
+        }else if ("updateComm".equals(method)){
+            String sid =request.getParameter("sid");
+            String cid = request.getParameter("cid");
+            String comment = request.getParameter("comment");
+            request.setAttribute("cid",cid);
+            request.setAttribute("sid",sid);
+            request.setAttribute("comment",comment);
+            request.getRequestDispatcher("/WEB-INF/studentPage/upComments.jsp").forward(request,response);
+        }else if ("update".equals(method)){
+            String sid =request.getParameter("sid");
+            String cid = request.getParameter("cid");
+            String comment = request.getParameter("comment");
         }
     }
 

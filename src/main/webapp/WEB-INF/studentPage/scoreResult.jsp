@@ -15,6 +15,6 @@
     String result = (String) request.getAttribute("result");
 %>
 <h3><%=result%></h3>
-<a href="/managerSystem/gotoStudentManager?method=viewLesson%>">back to view</a>
+<a href="/managerSystem/coursesController?method=viewLesson">back to view</a>
 </body>
 </html>

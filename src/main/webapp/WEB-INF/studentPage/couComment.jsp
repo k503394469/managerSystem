@@ -23,11 +23,12 @@
     <input type="hidden" name="sid" value="<%=sid%>">
     <input type="submit"  name="delete" value="Delete">
 </form>
-<form action="" method="post">
+<form action="/managerSystem/coursesController?method=updateComm" method="post">
     <input type="hidden" name="comment" value="<%=comment%>">
     <input type="hidden" name="cid" value="<%=cid%>">
     <input type="hidden" name="sid" value="<%=sid%>">
     <input type="submit"  name="update" value="Update">
 </form>
+<a href="/managerSystem/coursesController?method=viewLesson">back to view</a>
 </body>
 </html>
