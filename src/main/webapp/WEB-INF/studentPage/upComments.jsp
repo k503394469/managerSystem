@@ -18,8 +18,8 @@
 %>
 <form action="/managerSystem/coursesController?method=update" method="post" id="commUp">
     <textarea name="comment" form="commUp"><%=comment%></textarea>
-    <input type="hidden" name="sid" value="sid"/>
-    <input type="hidden" name="cid" value="cid"/>
+    <input type="hidden" name="sid" value="<%=sid%>"/>
+    <input type="hidden" name="cid" value="<%=cid%>"/>
     <input type="submit" name="update" value="update"/>
 </form>
 </body>

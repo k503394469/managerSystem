@@ -81,6 +81,19 @@ public class CoursesController extends HttpServlet {
             String sid =request.getParameter("sid");
             String cid = request.getParameter("cid");
             String comment = request.getParameter("comment");
+            Score score=new Score();
+            score.setSid(Integer.valueOf(sid));
+            score.setCid(Integer.valueOf(cid));
+            score.setComments(comment);
+
+            Integer updateComments = scoreDao.updateComments(score);
+            if (updateComments>0){
+                request.setAttribute("result","UpdateSuccess");
+                request.getRequestDispatcher("/WEB-INF/studentPage/scoreResult.jsp").forward(request,response);
+            }else {
+                request.setAttribute("result","UpdateFailed");
+                request.getRequestDispatcher("/WEB-INF/studentPage/scoreResult.jsp").forward(request,response);
+            }
         }
     }
 
