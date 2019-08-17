@@ -37,6 +37,8 @@ public class GotoStudentManager extends HttpServlet {
         String method = request.getParameter("method");
         sqlSession.clearCache();
         if ("view".equals(method)) {
+            String realPath = request.getServletContext().getRealPath("");
+            System.out.println(realPath);
             sqlSession.clearCache();
             Integer pageNow= Integer.valueOf(request.getParameter("page"));
             if (pageNow<=0){

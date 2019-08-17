@@ -50,6 +50,7 @@ public class GotoIndex extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         if (username == null || username == "" || password == null || password == "") {
+            request.setAttribute("error", "please check your Account or password");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
             return;
         }
@@ -74,6 +75,7 @@ public class GotoIndex extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/viewPage/manager.jsp").forward(request, response);
                 times++;
             } else {
+                request.setAttribute("error", "please check your Account or password");
                 request.getRequestDispatcher("/login.jsp").forward(request, response);
                 System.out.println("failed");
             }

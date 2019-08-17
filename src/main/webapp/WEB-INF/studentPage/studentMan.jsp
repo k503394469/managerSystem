@@ -10,9 +10,10 @@
 <head>
     <title>studentMan</title>
 </head>
+<jsp:include page="/WEB-INF/publicPage/studentInfo.jsp"></jsp:include>
 <body>
 <h1>My Manager</h1>
 <a href="/managerSystem/coursesController?method=viewLesson">Look My lesson</a>&nbsp;<br/>
-<a href="">Back to Student Login</a>
+<a href="/managerSystem/stuExitServlet">Back to Student Login</a>
 </body>
 </html>

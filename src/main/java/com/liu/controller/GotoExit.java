@@ -16,10 +16,11 @@ public class GotoExit extends HttpServlet {
     OutputStream out=null;
     String path=null;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        synchronized (this){
-            ViewTimesRecord vtr=new ViewTimesRecord();
-            vtr.viewController(request,request.getServletContext(),"/times_of_connected.properties");
-        }
+//        synchronized (this){
+//            ViewTimesRecord vtr=new ViewTimesRecord();
+//            vtr.viewController(request,request.getServletContext(),"/times_of_connected.properties");
+//        }
+
         request.getSession().invalidate();
         response.sendRedirect("/managerSystem/login.jsp");
     }
