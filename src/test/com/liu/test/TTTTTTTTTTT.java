@@ -4,28 +4,36 @@ import javafx.beans.binding.ObjectExpression;
 import org.junit.Test;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class TTTTTTTTTTT {
-    public static void main(String[] args) {
-        Random r=new Random();
-        Integer []arr=new Integer[5];
-        for (int i=0;i<arr.length;i++){
-            arr[i]=r.nextInt(100);
-            System.out.println(arr[i]);
+    public static void main(String[] args) throws Exception{
+//        Random r=new Random();
+//        Integer []arr=new Integer[5];
+//        for (int i=0;i<arr.length;i++){
+//            arr[i]=r.nextInt(100);
+//            System.out.println(arr[i]);
+//        }
+//        System.out.println("---------");
+//       for (int start=0,end=arr.length-1;start<=end;start++,end--){
+//           int temp=arr[start];
+//           arr[start]=arr[end];
+//           arr[end]=temp;
+//       }
+//       for (Integer j:arr){
+//           System.out.println(j);
+//       }
+        Properties properties=new Properties();
+        BufferedWriter bw=new BufferedWriter(new FileWriter("chat.txt",true));
+        List<String> toFile=new ArrayList<String>();
+        toFile.add("iii");
+        toFile.add("ppp");
+        for (String s:toFile){
+            bw.write(s);
+            bw.newLine();
+            bw.flush();
         }
-        System.out.println("---------");
-       for (int start=0,end=arr.length-1;start<=end;start++,end--){
-           int temp=arr[start];
-           arr[start]=arr[end];
-           arr[end]=temp;
-       }
-       for (Integer j:arr){
-           System.out.println(j);
-       }
+        bw.close();
     }
     @Test
     public void t1() throws Exception{
@@ -54,5 +62,15 @@ public class TTTTTTTTTTT {
         while ((read=br.read())!=-1){
             System.out.print((char) read);
         }
+    }
+    @Test
+    public  void t3() throws Exception{
+        ThreadDemo td1=new ThreadDemo();
+        Thread t1=new Thread(td1,"一号");
+        Thread t2=new Thread(td1,"二号");
+
+        t1.start();
+        t2.start();
+
     }
 }
