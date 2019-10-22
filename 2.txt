@@ -1,0 +1,7 @@
+library(XML)
+url<-"http://femhzs.mofcom.gov.cn/fecpmvc/pages/fem/CorpJWList.html"
+tbls<-readHTMLTable
+tbls<-readHTMLTable(url)
+sapply(tbls,nrow)
+pop<-readHTMLTable(url,which = 1)
+write.csv(pop,file="C:/pop.csv")

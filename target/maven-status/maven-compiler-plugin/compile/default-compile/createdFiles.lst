@@ -1,0 +1,9 @@
+com\liu\utils\MybatisUtils.class
+com\liu\dao\ManagerDao.class
+com\liu\controller\GotoStudentManager.class
+com\liu\domain\Manager.class
+com\liu\dao\StudentDao.class
+com\liu\domain\Student.class
+com\liu\controller\StudentController.class
+com\liu\domain\Course.class
+com\liu\controller\GotoIndex.class

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liu.dao.StudentDao">
+    <resultMap id="studentMap" type="com.liu.domain.Student">
+        <id property="id" column="id"/>
+        <result property="name" column="name"></result>
+        <result property="age" column="age"></result>
+        <result property="sex" column="sex"></result>
+        <result property="address" column="address"></result>
+        <result property="email" column="email"></result>
+        <result property="dept" column="dept"></result>
+        <collection property="courses" ofType="com.liu.domain.Course">
+            <id property="courseId" column="courseId"></id>
+            <result property="courseName" column="courseName"></result>
+            <result property="courseScore" column="courseScore"></result>
+        </collection>
+        <collection property="scores" ofType="com.liu.domain.Score">
+            <result property="cid" column="scoreCid"></result>
+            <result property="sid" column="scoreSid"></result>
+            <result property="point" column="scorePoint"></result>
+            <result property="comments" column="comments"></result>
+        </collection>
+    </resultMap>
+    <select id="loginCheck" resultType="com.liu.domain.Student" flushCache="true" useCache="false">
+        select * from student where id=#{id} and password=#{password}
+    </select>
+    <select id="findAll" resultType="com.liu.domain.Student" flushCache="true" useCache="false">
+        select * from student
+    </select>
+    <select id="getAllStudent" resultMap="studentMap" parameterType="Map" flushCache="true" useCache="false">
+        select * from student order by id limit #{pageNow},#{pageSize}
+    </select>
+    <select id="totalStudent" resultType="Integer" flushCache="true" useCache="false">
+        select count(*) from student
+    </select>
+    <select id="checkStuScore" resultMap="studentMap" parameterType="Integer" flushCache="true" useCache="false">
+        select student.*,course.id as courseId,course.name as courseName,course.score as courseScore,
+        score.cid as scoreCid,score.sid as scoreSid,score.point as scorePoint,score.comments
+        from student
+        left join score on score.sid=student.id left join course on course.id=score.cid where student.id=#{id}
+    </select>
+    <select id="findStudentById" resultType="com.liu.domain.Student" parameterType="Integer" flushCache="true"
+            useCache="false">
+        select * from student where id=#{id}
+    </select>
+    <insert id="insertStudent" parameterType="com.liu.domain.Student" flushCache="true">
+        insert into student(name,age,sex,address,email,dept) values(#{name},#{age},#{sex},#{address},#{email},#{dept})
+    </insert>
+    <insert id="insertTodel" parameterType="com.liu.domain.Student" flushCache="true">
+        insert into deletedStu values(#{id},#{name},#{age},#{sex},#{address},#{email},#{dept})
+    </insert>
+
+    <insert id="batchInsertDel" parameterType="java.util.List" flushCache="true">
+        insert into deletedStu(id,name,age,sex,address,email,dept) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.name},#{item.age},#{item.sex},#{item.address},#{item.email},#{item.dept})
+        </foreach>
+    </insert>
+
+    <select id="totalStudentForFuzzy" resultType="Integer" parameterType="String" flushCache="true" useCache="false">
+        select count(*) from student where name like #{name}
+    </select>
+    <select id="findStudentByName" resultType="com.liu.domain.Student" parameterType="Map" flushCache="true"
+            useCache="false">
+        select * from student where name like #{name} order by id limit #{pageNow},#{pageSize}
+    </select>
+    <select id="findStudentByIds" resultType="com.liu.domain.Student" parameterType="java.util.List" flushCache="true" useCache="false">
+        select * from student where id in
+        <foreach collection="ids" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+    <update id="updateStudent" parameterType="com.liu.domain.Student" flushCache="true">
+        update student
+        <set>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="age!=null and age!=''">
+                age=#{age},
+            </if>
+            <if test="sex!=null and sex!=''">
+                sex=#{sex},
+            </if>
+            <if test="address!=null and address!=''">
+                address=#{address},
+            </if>
+            <if test="email!=null and email!=''">
+                email=#{email},
+            </if>
+            <if test="dept!=null and dept!=''">
+                dept=#{dept}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+    <delete id="deleteStudent" parameterType="Integer" flushCache="true">
+        delete from student where id=#{id}
+    </delete>
+    <delete id="batchDeleteStudent" parameterType="Integer" flushCache="true">
+        delete from student
+        <where>
+            <foreach collection="ids" open="and id in(" close=")" separator="," item="item" index="">
+                #{item}
+            </foreach>
+        </where>
+    </delete>
+</mapper>
