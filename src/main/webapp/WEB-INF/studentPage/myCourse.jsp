@@ -65,5 +65,7 @@ TotalScore:<%=result%>
 <%
     }
 %>
+<br>
+<a href="/managerSystem/stuExitServlet">Back to Student Login</a>
 </body>
 </html>
